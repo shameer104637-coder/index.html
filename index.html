@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Festive Greeting Sequence</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+    background: #e0f7fa;
+  }
+  /* Background with animated floating stars */
+  .background-stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+  }
+  .star {
+    position: absolute;
+    font-size: 12px;
+    color: #ffd700;
+    opacity: 0.8;
+    animation: floatUp 20s linear infinite;
+  }
+  @keyframes floatUp {
+    0% {
+      transform: translateY(100vh) translateX(0);
+      opacity: 0;
+    }
+    50% {
+      opacity: 0.8;
+    }
+    100% {
+      transform: translateY(-10vh) translateX(10vw);
+      opacity: 0;
+    }
+  }
+
+  /* Main interface styles */
+  .interface {
+    position: relative;
+    display: none;
+    max-width: 400px;
+    margin: 80px auto;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    background-color: rgba(255, 255, 255, 0.9);
+    text-align: center;
+  }
+  .active {
+    display: block;
+  }
+  h1, h2 {
+    margin-top: 0;
+    color: #0277bd;
+  }
+  p {
+    font-size: 1.2em;
+    color: #555;
+  }
+
+  /* Decorations objects */
+  .star, .lantern, .moon, .candle {
+    position: absolute;
+    font-size: 24px;
+  }
+  .star {
+    top: 10px;
+    right: 20px;
+    color: gold;
+    animation: twinkle 2s infinite alternate;
+  }
+  .lantern {
+    bottom: 10px;
+    left: 15px;
+    font-size: 28px;
+    color: orange;
+  }
+  .moon {
+    top: 20px;
+    left: 20px;
+    font-size: 24px;
+    color: silver;
+  }
+  .candle {
+    bottom: 20px;
+    right: 20px;
+    font-size: 22px;
+    color: #ffcc00;
+  }
+
+  /* Twinkle stars animation */
+  @keyframes twinkle {
+    0% { opacity: 1; }
+    100% { opacity: 0.3; }
+  }
+
+  /* Fade-in animation for interfaces */
+  @keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+  }
+  .interface {
+    animation: fadeIn 1s ease-in-out;
+  }
+</style>
+</head>
+<body>
+
+<!-- Animated floating stars in background -->
+<div class="background-stars" id="starsContainer"></div>
+
+<!-- Interface sections -->
+<div id="preGreeting" class="interface active">
+  <div class="star">⭐</div>
+  <h2>🎉 Welcome! 🎉</h2>
+  <p>Get ready to celebrate Ramadan with us.</p>
+</div>
+
+<div id="greeting" class="interface">
+  <div class="moon">🌙</div>
+  <h1>🌙 Ramadan Mubarak 🌙</h1>
+  <p>May this holy month bring peace, happiness, and blessings to you and your family.</p>
+</div>
+
+<div id="welcomeFriends" class="interface">
+  <div class="lantern">🏮</div>
+  <h2>🤝 Welcome, Friends! 🤝</h2>
+  <p>Enjoy this special time together.</p>
+  <div class="candle">🕯️</div>
+</div>
+
+<script>
+  // Generate floating stars in background
+  const starCount = 50;
+  const container = document.getElementById('starsContainer');
+
+  for (let i = 0; i < starCount; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    star.innerHTML = '✨';
+    star.style.top = Math.random() * 100 + 'vh';
+    star.style.left = Math.random() * 100 + 'vw';
+    star.style.fontSize = (Math.random() * 8 + 8) + 'px'; // size between 8px and 16px
+    star.style.animationDuration = (10 + Math.random() * 10) + 's'; // 10-20s
+    container.appendChild(star);
+  }
+
+  // Transition sequence with decorations
+  window.onload = () => {
+    // Show greeting after 3 seconds
+    setTimeout(() => {
+      document.getElementById('preGreeting').classList.remove('active');
+      document.getElementById('greeting').classList.add('active');
+      
+      // Show welcomeFriends after another 3 seconds
+      setTimeout(() => {
+        document.getElementById('greeting').classList.remove('active');
+        document.getElementById('welcomeFriends').classList.add('active');
+      }, 3000);
+    }, 3000);
+  };
+</script>
+
+</body>
+</html>
